@@ -62,6 +62,8 @@ const pluginContext = {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  return;
+
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
@@ -69,6 +71,14 @@ function buildHeroBlock(main) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
+  }
+}
+function addHeroClass(main) {
+  const sectionSlider = document.querySelector('.carousel-container');
+  if (sectionSlider) {
+    sectionSlider.classList.add('home-hero-slider');
+  } else {
+    console.warn('Error: .carousel-container element not found.');
   }
 }
 
@@ -103,11 +113,13 @@ function autolinkModals(element) {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    addHeroClass(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
 }
+
 
 /**
  * Decorate Columns Template to the main element.
@@ -252,6 +264,15 @@ async function loadEager(doc) {
 
     // Load LCP blocks
     await loadSection(main.querySelector('.section'), waitForFirstImage);
+
+    const pagePath = window.location.pathname; // Get the current page path
+    const pageClass = pagePath.replace(/\//g, '-').replace(/^-|-$/g, ''); // Convert the path to a class-friendly format
+    if (pageClass) {
+      document.body.classList.add(`page-${pageClass}`);
+    } else {
+      document.body.classList.add('page-home'); // Default class for the homepage
+    }
+
     document.body.classList.add('appear');
   }
 
