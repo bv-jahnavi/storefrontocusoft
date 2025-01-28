@@ -2,7 +2,6 @@
 /* eslint-disable import/no-cycle */
 import { events } from '@dropins/tools/event-bus.js';
 import {
-  buildBlock,
   decorateBlocks,
   decorateButtons,
   decorateIcons,
@@ -61,19 +60,17 @@ const pluginContext = {
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
-function buildHeroBlock(main) {
-  return;
-
-  const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
-    main.prepend(section);
-  }
-}
-function addHeroClass(main) {
+// function buildHeroBlock(main) {
+//   const h1 = main.querySelector('h1');
+//   const picture = main.querySelector('picture');
+//   // eslint-disable-next-line no-bitwise
+//   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)){
+//     const section = document.createElement('div');
+//     section.append(buildBlock('hero', { elems: [picture, h1] }));
+//     main.prepend(section);
+//   }
+// }
+function addHeroClass() {
   const sectionSlider = document.querySelector('.carousel-container');
   if (sectionSlider) {
     sectionSlider.classList.add('home-hero-slider');
@@ -112,14 +109,13 @@ function autolinkModals(element) {
  */
 function buildAutoBlocks(main) {
   try {
-    buildHeroBlock(main);
+    // buildHeroBlock(main);
     addHeroClass(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
 }
-
 
 /**
  * Decorate Columns Template to the main element.

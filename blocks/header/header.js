@@ -164,7 +164,6 @@ export default async function decorate(block) {
 
   const navTools = nav.querySelector('.nav-tools');
 
-
   /** Search */
 
   // TODO
@@ -201,24 +200,13 @@ export default async function decorate(block) {
 
   navTools.querySelector('.nav-search-button').addEventListener('click', () => toggleSearch());
 
-  // Close panels when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!minicartPanel.contains(e.target) && !cartButton.contains(e.target)) {
-      toggleMiniCart(false);
-    }
-
-    if (!searchPanel.contains(e.target) && !searchButton.contains(e.target)) {
-      toggleSearch(false);
-    }
-  });
-
   // TODO: Following statements added for demo purpose (Auth Drop-In)
   renderAuthCombine(
     navSections,
     () => !isDesktop.matches && toggleMenu(nav, navSections, false),
   );
   renderAuthDropdown(navTools);
-  
+
   /** Wishlist */
   const wishlist = document.createRange().createContextualFragment(`
      <div class="wishlist-wrapper nav-tools-wrapper">
@@ -280,6 +268,16 @@ export default async function decorate(block) {
     { eager: true },
   );
 
+  // Close panels when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!minicartPanel.contains(e.target) && !cartButton.contains(e.target)) {
+      toggleMiniCart(false);
+    }
+
+    if (!searchPanel.contains(e.target) && !searchButton.contains(e.target)) {
+      toggleSearch(false);
+    }
+  });
 
   // hamburger for mobile
   const hamburger = document.createElement('div');
